@@ -1,0 +1,13 @@
+# Environment variables
+.env
+
+# IDE settings
+.vscode/
+
+# Dependencies
+node_modules/
+
+# Build and cache folders
+frontend/.cache/
+dist/
+build/
