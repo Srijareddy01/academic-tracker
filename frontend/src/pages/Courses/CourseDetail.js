@@ -1022,7 +1022,7 @@ const CourseDetail = () => {
                 </div>
                 <div className="mt-4">
                   <a 
-                    href={`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000'}/uploads/${material.filename}`} 
+                    href={`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/uploads/${material.filename}`} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="btn-secondary text-sm w-full text-center"
