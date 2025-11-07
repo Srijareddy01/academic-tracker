@@ -577,6 +577,7 @@ const CourseDetail = () => {
                   onChange={(e) => setSelectedBatch(e.target.value)}
                   className="input"
                 >
+                  <option value="all">All Batches</option>
                   <option value="2026-CSE-A">2026-CSE-A</option>
                   <option value="2026-CSE-B">2026-CSE-B</option>
                   <option value="2026-CSM-A">2026-CSM-A</option>
@@ -595,7 +596,7 @@ const CourseDetail = () => {
                   <option value="2027-ECE">2027-ECE</option>
                 </select>
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                  Select a batch to filter students
+                  Select a batch to filter students ("All Batches" shows students from all batches)
                 </p>
               </div>
               
@@ -616,7 +617,7 @@ const CourseDetail = () => {
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label htmlFor="select-all" className="ml-2 block text-sm text-gray-900 dark:text-white">
-                  Select All Students
+                  Select All Students ({studentsData ? studentsData.length : 0} total)
                 </label>
               </div>
               
@@ -635,7 +636,7 @@ const CourseDetail = () => {
                         // Refetch students data
                         // We can simulate a refetch by changing the selectedBatch state
                         const currentBatch = selectedBatch;
-                        setSelectedBatch('2026-CSE-A');
+                        setSelectedBatch(selectedBatch === 'all' ? '2026-CSE-A' : 'all');
                         setTimeout(() => setSelectedBatch(currentBatch), 100);
                       }} 
                       className="mt-2 btn-primary text-sm"
@@ -668,9 +669,9 @@ const CourseDetail = () => {
                             <p className="text-sm text-gray-500 dark:text-gray-400">
                               Hallticket: {student?.studentId || 'N/A'}
                             </p>
-                            {student?.batch && (
+                            {(student?.batch || selectedBatch === 'all') && (
                               <p className="text-xs text-gray-400 dark:text-gray-500">
-                                Batch: {student.batch}
+                                Batch: {student.batch || 'No Batch'}
                               </p>
                             )}
                           </div>
@@ -681,14 +682,14 @@ const CourseDetail = () => {
                   </ul>
                 ) : (
                   <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                    <p>No students found for the selected batch.</p>
-                    <p className="text-sm mt-1">Current batch filter: {selectedBatch}</p>
+                    <p>No students found{selectedBatch === 'all' ? '' : ' for the selected batch'}.</p>
+                    <p className="text-sm mt-1">Current filter: {selectedBatch === 'all' ? 'All Batches' : selectedBatch}</p>
                     <button 
                       onClick={() => {
                         // Refetch students data
                         // We can simulate a refetch by changing the selectedBatch state
                         const currentBatch = selectedBatch;
-                        setSelectedBatch('2026-CSE-A');
+                        setSelectedBatch(selectedBatch === 'all' ? '2026-CSE-A' : 'all');
                         setTimeout(() => setSelectedBatch(currentBatch), 100);
                       }} 
                       className="mt-2 btn-primary text-sm"
@@ -700,7 +701,7 @@ const CourseDetail = () => {
               </div>
               
               <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                Selected: {selectedStudents.length} students
+                Selected: {selectedStudents.length} of {studentsData ? studentsData.length : 0} students
               </div>
             </div>
           )}

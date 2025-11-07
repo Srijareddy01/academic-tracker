@@ -12,6 +12,7 @@ const BatchFilter = ({ selectedBatch, onBatchChange, className = '' }) => {
       onChange={handleBatchChange}
       className={`input ${className}`}
     >
+      <option value="all">All Batches</option>
       <option value="2026-CSE-A">2026-CSE-A</option>
       <option value="2026-CSE-B">2026-CSE-B</option>
       <option value="2026-CSM-A">2026-CSM-A</option>

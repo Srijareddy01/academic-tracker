@@ -536,13 +536,14 @@ const CreateAssignment = ({ assignmentToEdit }) => {
             {/* Batch Filter */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Filter by Batch
+                Filter by Batch ("All Batches" shows students from all batches)
               </label>
               <select
                 value={selectedBatch}
                 onChange={(e) => setSelectedBatch(e.target.value)}
                 className="input"
               >
+                <option value="all">All Batches</option>
                 <option value="2026-CSE-A">2026-CSE-A</option>
                 <option value="2026-CSE-B">2026-CSE-B</option>
                 <option value="2026-CSM-A">2026-CSM-A</option>
@@ -621,7 +622,7 @@ const CreateAssignment = ({ assignmentToEdit }) => {
                             {student.firstName} {student.lastName}
                           </p>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Hallticket: {student.studentId || 'N/A'} | Batch: {student.batch || 'No Batch'}
+                            Hallticket: {student.studentId || 'N/A'}{selectedBatch === 'all' ? ` | Batch: ${student.batch || 'No Batch'}` : ''}
                           </p>
                         </div>
                       </div>
@@ -630,8 +631,8 @@ const CreateAssignment = ({ assignmentToEdit }) => {
                 </ul>
               ) : (
                 <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-                  <p>No students found for the selected batch.</p>
-                  <p className="text-sm mt-1">Current batch filter: {selectedBatch}</p>
+                  <p>No students found{selectedBatch === 'all' ? '' : ' for the selected batch'}.</p>
+                  <p className="text-sm mt-1">Current filter: {selectedBatch === 'all' ? 'All Batches' : selectedBatch}</p>
                   <button 
                     onClick={() => refetchStudents()} 
                     className="mt-2 btn-primary text-sm"
