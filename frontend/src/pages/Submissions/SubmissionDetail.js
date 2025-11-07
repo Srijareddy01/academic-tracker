@@ -346,24 +346,20 @@ const SubmissionDetail = () => {
                     // Display image preview
                     <div className="mb-2">
                       <img 
-                        src={attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api${attachment.url}`} 
+                        src={attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`} 
                         alt={attachment.originalName}
                         className="w-full h-32 object-cover rounded"
                         onError={(e) => {
                           console.error('Image load error:', {
                             url: attachment.url,
-                            constructedUrl: attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api${attachment.url}`,
+                            constructedUrl: attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`,
                             attachment: attachment
                           });
-                          // Fallback to full URL construction if direct path doesn't work
-                          if (!attachment.url.startsWith('http')) {
-                            e.target.src = `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`;
-                          }
                         }}
                         onLoad={(e) => {
                           console.log('Image loaded successfully:', {
                             url: attachment.url,
-                            constructedUrl: attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api${attachment.url}`,
+                            constructedUrl: attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`,
                             attachment: attachment
                           });
                         }}
@@ -383,12 +379,12 @@ const SubmissionDetail = () => {
                       {attachment.mimeType} • {(attachment.size / 1024).toFixed(1)} KB
                     </p>
                     <a 
-                      href={attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api${attachment.url}`} 
+                      href={attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs mt-1 inline-block"
                       onClick={(e) => {
-                        const url = attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api${attachment.url}`;
+                        const url = attachment.url.startsWith('http') ? attachment.url : `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}${attachment.url}`;
                         console.log('Download link clicked:', {
                           url: url,
                           attachment: attachment
