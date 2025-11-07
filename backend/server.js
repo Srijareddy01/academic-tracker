@@ -136,6 +136,11 @@ app.use('/api/grades', require('./routes/grades'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/firestore', require('./routes/firestore'));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+ 
+
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
