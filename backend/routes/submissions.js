@@ -434,7 +434,7 @@ router.post('/:id/upload', verifyFirebaseToken, requireStudent, upload.array('at
     if (submission.student.toString() !== req.currentUser._id.toString()) return res.status(403).json({ message: 'Access denied' });
 
     if (req.files && req.files.length > 0) {
-      const attachments = req.files.map(f => ({ filename: f.filename, originalName: f.originalname, mimeType: f.mimetype, size: f.size, url: `/uploads/${f.filename}`, uploadedAt: new Date() }));
+      const attachments = req.files.map(f => ({ filename: f.filename, originalName: f.originalname, mimeType: f.mimetype, size: f.size, url: `${process.env.BACKEND_URL || 'http://localhost:5000'}/uploads/${f.filename}`, uploadedAt: new Date() }));
       submission.attachments = [...submission.attachments, ...attachments];
       await submission.save();
       res.json({ message: 'Files uploaded', attachments });
